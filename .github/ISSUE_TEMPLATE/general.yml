@@ -1,0 +1,13 @@
+name: Something else
+description: A question, a rough edge, or anything that is not a wrong value
+body:
+  - type: textarea
+    id: body
+    attributes:
+      label: What is going on
+    validations: { required: true }
+  - type: markdown
+    attributes:
+      value: |
+        There is no pull request policy yet, which is stated openly in `CONTRIBUTING.md`
+        rather than left implied. Raising something here first is the fastest path.
