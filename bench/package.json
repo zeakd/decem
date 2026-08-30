@@ -1,0 +1,10 @@
+{
+  "name": "@denary/bench",
+  "private": true,
+  "type": "module",
+  "description": "The libraries denary is compared against, for speed here and for behaviour in test/peers. Not published, and not part of the library's own install.",
+  "devDependencies": {
+    "big.js": "^7.0.1",
+    "decimal.js": "^10.6.0"
+  }
+}
