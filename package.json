@@ -1,0 +1,70 @@
+{
+  "name": "denary",
+  "version": "0.1.0",
+  "description": "A modern decimal library for TypeScript, built on BigInt. Addition and multiplication are exact; rounding takes a precision argument.",
+  "keywords": [
+    "decimal",
+    "bigdecimal",
+    "arbitrary-precision",
+    "precision",
+    "exact",
+    "correctly-rounded",
+    "rounding",
+    "money",
+    "currency",
+    "financial",
+    "bignumber",
+    "bigint",
+    "math",
+    "typescript",
+    "esm"
+  ],
+  "license": "MIT",
+  "author": "zeakd",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeakd/denary.git"
+  },
+  "homepage": "https://github.com/zeakd/denary#readme",
+  "bugs": "https://github.com/zeakd/denary/issues",
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./chain": {
+      "types": "./dist/chain.d.ts",
+      "default": "./dist/chain.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "examples",
+    "README.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "node --test test/packaging.test.mjs test/unit/*.test.mjs",
+    "check": "mise run check",
+    "prepack": "pnpm build"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}

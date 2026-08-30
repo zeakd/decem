@@ -1,0 +1,123 @@
+# The tools the gates run on, pinned so that a result means the same thing twice.
+#
+# Gate D compares four runtimes byte for byte and declares each one's digit ceiling. That
+# comparison is only worth something if the runtimes are the ones the declaration was
+# measured against, and without this it ran on whatever happened to be on the path.
+#
+# uv replaces the virtual environment the oracle generation used to need. It resolves the
+# interpreter and gmpy2 on demand and caches them, which costs about a tenth of a second
+# after the first run, so regenerating no longer starts with a setup step that can be
+# skipped or done differently.
+[tools]
+node = "26.8.1"
+bun = "1.4.0"
+deno = "2.9.6"
+uv = "latest"
+
+# The gates, one task each, and `check` to run them.
+#
+# `depends` runs in parallel, which is what makes the set worth splitting: the gates are
+# independent and the machine has cores. The one exception is the performance gate, which
+# measures wall time and cannot share a machine with eleven other processes. It runs on its
+# own after the rest, through `run` rather than `depends`.
+#
+# `pnpm check` still works and calls this, so the command a JavaScript developer reaches
+# for is unchanged and the decomposition lives in one place.
+
+# The locally installed binaries, so a task can call tsc the way a package script does.
+[env]
+_.path = ["{{config_root}}/node_modules/.bin"]
+
+# The command itself stays in package.json, so building and publishing do not need
+# mise. This wraps it to get the up-to-date check and to be depended on.
+[tasks.build]
+run = "pnpm build"
+sources = ["src/**/*.ts", "tsconfig.build.json"]
+outputs = ["dist/**/*.js"]
+
+[tasks."check:types"]
+run = "tsc --noEmit -p tsconfig.json"
+
+[tasks."check:contract"]
+description = "gate E, the promised compile errors must actually occur"
+run = "tsc --noEmit -p test/types/tsconfig.json"
+
+[tasks."check:unit"]
+depends = ["build"]
+run = "pnpm test"
+
+[tasks."check:oracle"]
+description = "gate A, against Python decimal and MPFR"
+run = "node test/oracle/compare.mjs"
+
+[tasks."check:laws"]
+description = "gate B, associativity, distributivity and commutativity"
+run = "node test/laws/algebraic-laws.mjs"
+
+[tasks."check:boundary"]
+description = "gate C, constructed rounding ties"
+run = "node test/boundary/compare.mjs"
+
+[tasks."check:runtime"]
+description = "gate D, byte-identical results on four runtimes"
+depends = ["build"]
+run = "node test/runtime/compare.mjs"
+
+[tasks."check:peers"]
+description = "gate H, us against decimal.js with the oracle deciding"
+run = "node test/peers/compare.mjs"
+
+[tasks."check:bounds"]
+description = "gate I, no answer depends on the error bound being as small as declared"
+run = "node test/bounds/check.mjs"
+
+[tasks."check:memory"]
+description = "gate J, every operation stays inside a declared heap budget"
+run = "node test/memory/check.mjs"
+
+[tasks."check:examples"]
+run = "node --test test/docs/examples.test.mjs"
+
+[tasks."check:report"]
+run = "node bench/report.mjs --check"
+
+[tasks."check:coverage"]
+description = "gate G, every export declares which gates cover it"
+run = "node test/coverage/check.mjs"
+
+[tasks."check:bench"]
+description = "gate F, performance against the committed baseline. Wants a quiet machine."
+run = "node bench/run.mjs"
+
+[tasks."check:conformance"]
+description = "the specification's own testcases, which are not redistributable"
+run = "node --max-old-space-size=2048 test/conformance/dectest.mjs"
+
+[tasks."bench:versus"]
+run = "node bench/versus.mjs"
+
+[tasks."bench:report"]
+run = "node bench/report.mjs"
+
+[tasks.check]
+description = "every gate. The parallel ones first, then the one that measures time."
+depends = [
+  "check:types", "check:contract", "check:unit", "check:oracle", "check:laws",
+  "check:boundary", "check:runtime", "check:peers", "check:bounds",
+  "check:memory", "check:examples", "check:report", "check:coverage",
+]
+run = "mise run check:bench"
+
+[tasks."peers:regen"]
+description = "recompute what decimal.js answers. Needs the comparison install."
+run = "node test/peers/gen-peer.mjs"
+
+[tasks."oracle:regen"]
+description = "recompute the committed answers. Needs MPFR through uv."
+run = [
+  "node test/oracle/gen-cases.mjs",
+  "node test/boundary/gen-boundary.mjs",
+  "uv run --with gmpy2 python test/boundary/gen-transcendental.py",
+  "uv run --with gmpy2 python test/oracle/oracle.py",
+  "uv run --with gmpy2 python test/boundary/oracle-boundary.py",
+]
