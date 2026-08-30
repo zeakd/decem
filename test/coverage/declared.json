@@ -1,0 +1,284 @@
+{
+  "//": "Gate G: every operation declares which gates cover it. An undeclared export fails the build.",
+  "//gates": "A=oracle B=laws C=boundary D=runtime E=types F=performance G=coverage H=peers I=error bound J=memory budget U=unit",
+  "ops": {
+    "dec": [
+      "E",
+      "U"
+    ],
+    "fromNumber": [
+      "E",
+      "U"
+    ],
+    "fromInt": [
+      "E",
+      "U"
+    ],
+    "toString": [
+      "A",
+      "D",
+      "E",
+      "F",
+      "J",
+      "U"
+    ],
+    "add": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "F",
+      "H",
+      "J",
+      "U"
+    ],
+    "sub": [
+      "A",
+      "B",
+      "E",
+      "U",
+      "H"
+    ],
+    "mul": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "F",
+      "H",
+      "J",
+      "U"
+    ],
+    "sum": [
+      "B",
+      "E",
+      "U"
+    ],
+    "neg": [
+      "B",
+      "E",
+      "U"
+    ],
+    "abs": [
+      "E",
+      "U"
+    ],
+    "cmp": [
+      "B",
+      "D",
+      "E",
+      "F",
+      "U"
+    ],
+    "eq": [
+      "B",
+      "E",
+      "U"
+    ],
+    "lt": [
+      "E",
+      "U"
+    ],
+    "lte": [
+      "E",
+      "U"
+    ],
+    "gt": [
+      "E",
+      "U"
+    ],
+    "gte": [
+      "E",
+      "U"
+    ],
+    "round": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "F",
+      "U"
+    ],
+    "div": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "H",
+      "J",
+      "U"
+    ],
+    "sqrt": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "F",
+      "H",
+      "J",
+      "U"
+    ],
+    "cbrt": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "H",
+      "U"
+    ],
+    "pow": [
+      "A",
+      "D",
+      "E",
+      "F",
+      "U"
+    ],
+    "exp": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "F",
+      "H",
+      "I",
+      "J",
+      "U"
+    ],
+    "ln": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "F",
+      "H",
+      "I",
+      "J",
+      "U"
+    ],
+    "log10": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "H",
+      "I",
+      "U"
+    ],
+    "sin": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "H",
+      "I",
+      "J",
+      "U"
+    ],
+    "cos": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "H",
+      "I",
+      "U"
+    ],
+    "tan": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "H",
+      "I",
+      "U"
+    ],
+    "isZero": [
+      "U"
+    ],
+    "isNeg": [
+      "U"
+    ],
+    "digits": [
+      "J",
+      "U"
+    ],
+    "maxDigits": [
+      "D",
+      "U"
+    ],
+    "scaleOf": [
+      "U"
+    ],
+    "isqrt": [
+      "U"
+    ],
+    "icbrt": [
+      "U"
+    ],
+    "setZivMode": [],
+    "toFixed": [
+      "E",
+      "J",
+      "U"
+    ],
+    "toExponential": [
+      "E",
+      "U"
+    ],
+    "toNumber": [
+      "E",
+      "U"
+    ],
+    "toBigInt": [
+      "E",
+      "J",
+      "U"
+    ],
+    "quantize": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "J",
+      "U"
+    ],
+    "roundStatus": [
+      "A",
+      "E",
+      "U"
+    ],
+    "quantizeStatus": [
+      "A",
+      "E",
+      "U"
+    ],
+    "divStatus": [
+      "A",
+      "E",
+      "U"
+    ],
+    "sqrtStatus": [
+      "A",
+      "E",
+      "U"
+    ],
+    "tryDec": [
+      "E",
+      "U"
+    ],
+    "isDec": [
+      "E",
+      "U"
+    ],
+    "toPlainString": [
+      "J",
+      "U"
+    ]
+  },
+  "gaps": {
+    "toFixed/toExponential/toNumber/toBigInt": "no gate A: the oracle is authoritative for to-scientific-string only. These are our own contract, so units and types cover them",
+    "setZivMode": "a measurement switch rather than an operation; it selects between two ways of growing the working precision and neither changes an answer"
+  }
+}
