@@ -1,0 +1,53 @@
+# Publishing, from a tag, with provenance.
+#
+# The gates are not restated here. This calls one mise task, because the composition of
+# what has to pass belongs in mise.toml where a person running it locally sees the same
+# list. What this file owns is the identity: a GitHub-hosted runner mints an OIDC token,
+# npm trades it for the right to publish this package, and no npm token is stored anywhere.
+#
+# `check:release` is not `check`. Gate F measures wall time and a shared runner cannot
+# decide it, and the conformance run reads testcases that are not redistributable and are
+# not on a runner. Both are preconditions for tagging rather than things this proves, and
+# the summary below says so rather than letting a green tick imply otherwise.
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write        # OIDC, which is what publishes. There is no NPM_TOKEN here.
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest        # provenance requires a cloud-hosted runner
+    steps:
+      - uses: actions/checkout@v5
+
+      # The pinned tools, so gate D compares the runtimes the declaration was measured
+      # against and not whatever the image happened to ship.
+      - uses: jdx/mise-action@v3
+      - run: corepack enable
+
+      # Provenance needs a recent npm, and the one bundled with the pinned Node is older
+      # than the version that mints attestations without a flag.
+      - run: npm install -g npm@latest
+      - run: npm --version
+
+      - run: pnpm install --frozen-lockfile
+      - run: mise run deploy
+
+      - name: Say what this green does not cover
+        if: always()
+        run: |
+          {
+            echo "### Published from \`${GITHUB_REF_NAME}\`"
+            echo
+            echo "Decided here: the gates in \`check:release\`."
+            echo
+            echo "Not decided here, and preconditions for the tag instead:"
+            echo "- gate F, performance against the committed baseline, which needs a machine that is not shared"
+            echo "- the conformance run, whose testcases are not redistributable and are read from a local CPython"
+            echo "- the surface hygiene check, which lives outside this repository"
+          } >> "$GITHUB_STEP_SUMMARY"

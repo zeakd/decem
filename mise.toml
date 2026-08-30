@@ -108,6 +108,55 @@ depends = [
 ]
 run = "mise run check:bench"
 
+# What a shared runner is entitled to decide.
+#
+# `check` is the answer to whether this repository is worth releasing, and CI calls a task
+# rather than restating the list. Two of the gates cannot honestly run on a runner, so they
+# are named here instead of being dropped quietly.
+#
+# Gate F measures wall time against a committed baseline. On a shared runner it reports
+# whatever the neighbours were doing, and a gate that fails for reasons unrelated to the
+# change is a gate people learn to ignore. It stays a precondition for tagging, measured on
+# a machine somebody owns.
+#
+# The conformance run reads the specification's testcases from a local CPython, because they
+# are marked all rights reserved and cannot be committed. There is nothing for a runner to
+# read.
+#
+# So a green release is two signatures: this task, and a person who ran `check` and
+# `check:conformance` before tagging. The workflow prints both halves so the green is not
+# read as covering more than it does.
+[tasks."check:release"]
+description = "the gates a runner can decide. Excludes gate F and conformance, which need a machine."
+depends = [
+  "check:types", "check:contract", "check:unit", "check:oracle", "check:laws",
+  "check:boundary", "check:runtime", "check:peers", "check:bounds",
+  "check:memory", "check:examples", "check:report", "check:coverage",
+]
+
+# Publishing, which refuses more than it does.
+#
+# The version is not bumped here. A release is a tag, the tag names the version, and the two
+# have to agree before anything leaves: a tag that disagrees with package.json publishes a
+# number nobody asked for, and npm cannot take it back.
+[tasks.deploy]
+description = "publish to npm from the tag. Refuses unless the tag is the version and the gates are green."
+depends = ["check:release", "build"]
+run = [
+  """node --input-type=module -e '
+    import { readFileSync } from "node:fs";
+    import { execSync } from "node:child_process";
+    const version = JSON.parse(readFileSync("package.json", "utf8")).version;
+    const tag = (process.env.GITHUB_REF_NAME ?? execSync("git describe --tags --exact-match", { encoding: "utf8" })).trim();
+    if (tag !== `v${version}`) {
+      console.error(`deploy: the tag is ${tag} and package.json says ${version}. One of them is wrong, and npm does not take a version back.`);
+      process.exit(1);
+    }
+    console.log(`deploy: ${tag} matches package.json`);
+  '""",
+  "npm publish",
+]
+
 [tasks."peers:regen"]
 description = "recompute what decimal.js answers. Needs the comparison install."
 run = "node test/peers/gen-peer.mjs"
