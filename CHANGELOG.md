@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1
+
+The package metadata points at the repository. 0.1.0 was published while it was still
+called `denary`, so its homepage, repository and issues links name a repository that now
+answers only through a redirect.
+
+The first release published by the workflow, from a tag, with a provenance attestation.
+
 ## 0.1.0
 
 First release. The API is not frozen and may change before 1.0.
