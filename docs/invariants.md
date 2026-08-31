@@ -119,6 +119,7 @@ always `false` is not information.
 | H | Three-way comparison | us vs decimal.js vs the oracle; undeclared differences fail | `check:peers` |
 | I | Error bound | the transcendental corpus is identical with the bound inflated | `check:bounds` |
 | J | Memory budget | sizes between the corpora and the ceiling, each inside a declared heap | `check:memory` |
+| K | Lockfile | the lockfile still describes the manifests, which a plain install would repair in silence | `check:lockfile` |
 
 ## One check that is not a gate
 

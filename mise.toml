@@ -71,6 +71,19 @@ run = "node test/peers/compare.mjs"
 description = "gate I, no answer depends on the error bound being as small as declared"
 run = "node test/bounds/check.mjs"
 
+# The lockfile against the manifests, which nothing was asking.
+#
+# `pnpm install` without a flag repairs a stale lockfile in passing and says nothing, so a
+# developer never sees one. CI installs with `--frozen-lockfile`, which refuses instead,
+# and the first run of the release workflow found a lockfile that had been stale since
+# decimal.js moved from the root to bench: the root importer still declared it.
+#
+# `--offline` because the gates run from a clean clone with nothing fetched, and the check
+# is a comparison of specifiers rather than a resolution.
+[tasks."check:lockfile"]
+description = "the lockfile still describes the manifests, which a plain install would silently repair"
+run = "pnpm install --frozen-lockfile --offline"
+
 [tasks."check:memory"]
 description = "gate J, every operation stays inside a declared heap budget"
 run = "node test/memory/check.mjs"
@@ -104,7 +117,7 @@ description = "every gate. The parallel ones first, then the one that measures t
 depends = [
   "check:types", "check:contract", "check:unit", "check:oracle", "check:laws",
   "check:boundary", "check:runtime", "check:peers", "check:bounds",
-  "check:memory", "check:examples", "check:report", "check:coverage",
+  "check:memory", "check:lockfile", "check:examples", "check:report", "check:coverage",
 ]
 run = "mise run check:bench"
 
@@ -131,7 +144,7 @@ description = "the gates a runner can decide. Excludes gate F and conformance, w
 depends = [
   "check:types", "check:contract", "check:unit", "check:oracle", "check:laws",
   "check:boundary", "check:runtime", "check:peers", "check:bounds",
-  "check:memory", "check:examples", "check:report", "check:coverage",
+  "check:memory", "check:lockfile", "check:examples", "check:report", "check:coverage",
 ]
 
 # Publishing, which refuses more than it does.

@@ -287,7 +287,7 @@ an undeclared one: [`docs/differences.md`](docs/differences.md).
 
 ## Verification
 
-The contract above is checked, not asserted. `pnpm check` runs ten gates over this
+The contract above is checked, not asserted. `pnpm check` runs eleven gates over this
 repository, among them 2,631 cases against Python's `decimal` module and MPFR, and
 5,355 constructed rounding ties. The expected values are committed, so all of it runs
 from a clean clone without Python.
