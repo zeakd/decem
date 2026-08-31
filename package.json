@@ -23,10 +23,10 @@
   "author": "zeakd",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zeakd/denary.git"
+    "url": "git+https://github.com/zeakd/decem.git"
   },
-  "homepage": "https://github.com/zeakd/denary#readme",
-  "bugs": "https://github.com/zeakd/denary/issues",
+  "homepage": "https://github.com/zeakd/decem#readme",
+  "bugs": "https://github.com/zeakd/decem/issues",
   "type": "module",
   "sideEffects": false,
   "engines": {
