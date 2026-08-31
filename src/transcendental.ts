@@ -63,7 +63,7 @@ const ZIV_LINEAR = 19;
 // The environment variable is there for measurement only. It is read through a narrow
 // cast so the core does not depend on Node types and still loads in a browser.
 const envGuard = (globalThis as { process?: { env?: Record<string, string | undefined> } })
-  .process?.env?.["DENARY_GUARD"];
+  .process?.env?.["DECEM_GUARD"];
 export let GUARD = envGuard === undefined ? 16 : Number(envGuard);
 export const setGuard = (n: number): void => { GUARD = n; };
 export let ZIV_MODE: "linear" | "geometric" = "geometric";
@@ -77,7 +77,7 @@ export const resetZivStats = (): void => { zivStats.rounds = 0; zivStats.calls =
  * bound only makes the test more conservative. The default of 1n changes nothing.
  */
 const envInflation = (globalThis as { process?: { env?: Record<string, string | undefined> } })
-  .process?.env?.["DENARY_ERR_INFLATION"];
+  .process?.env?.["DECEM_ERR_INFLATION"];
 let ERR_INFLATION = envInflation === undefined ? 1n : BigInt(envInflation);
 export const setErrInflation = (n: bigint): void => { ERR_INFLATION = n; };
 /**
