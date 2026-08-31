@@ -17,7 +17,7 @@ importers:
 
   packages/chain:
     dependencies:
-      '@denary/core':
+      '@decem/core':
         specifier: workspace:*
         version: link:../core
 

@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Filled in, this becomes a case we can drop into the oracle, which is what decides
-        the question. Note that the oracle decides it, not denary and not whichever other
+        the question. Note that the oracle decides it, not decem and not whichever other
         library disagrees, for the reasons in `docs/differences.md`.
   - type: input
     id: operation
@@ -41,4 +41,4 @@ body:
     id: version
     attributes:
       label: Version and runtime
-      placeholder: denary 0.1.0, Node 22
+      placeholder: decem 0.1.0, Node 22

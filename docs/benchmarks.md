@@ -10,7 +10,7 @@ cannot.
 
 Measured on darwin/arm64, node 22.22.0, against decimal.js 10.6.0 and big.js 7.0.1. Every library is set to 34 digits with half-even rounding. Lower is better, and a difference inside 5% is called even because that is what the same machine returns between runs.
 
-| operation | denary | decimal.js | big.js | vs decimal.js |
+| operation | decem | decimal.js | big.js | vs decimal.js |
 |---|---:|---:|---:|---:|
 | parse a 34-digit literal | 98 ns | 222 ns | 203 ns | 2.3x faster |
 | to string | 88 ns | 100 ns | 158 ns | 1.1x faster |
@@ -28,15 +28,15 @@ Reproduce with `node bench/versus.mjs`, and regenerate this section with `node b
 
 ### Where it loses
 
-**compare**, 1.9x slower against decimal.js. Both peers keep digits in a form that can be scanned directly, while denary has to align two exponents before it can compare. It is the cheapest operation in the table, so there is nothing else in the row to amortise that against.
+**compare**, 1.9x slower against decimal.js. Both peers keep digits in a form that can be scanned directly, while decem has to align two exponents before it can compare. It is the cheapest operation in the table, so there is nothing else in the row to amortise that against.
 
 ### What the widest row is not
 
-Multiplication is not the same operation on both sides. denary's is exact and keeps every digit; decimal.js rounds the product to its configured precision. At 34 digits the inputs are short enough that both results are exact anyway, so that row is a direct comparison. At 400 digits it is not: denary returns an 800-digit exact product where decimal.js returns 34 rounded digits, and denary is still 227 times faster, because a base-1e7 array multiplies in O(n squared) and a BigInt does not. The ratio is reported with that difference stated, not left for the reader to find.
+Multiplication is not the same operation on both sides. decem's is exact and keeps every digit; decimal.js rounds the product to its configured precision. At 34 digits the inputs are short enough that both results are exact anyway, so that row is a direct comparison. At 400 digits it is not: decem returns an 800-digit exact product where decimal.js returns 34 rounded digits, and decem is still 227 times faster, because a base-1e7 array multiplies in O(n squared) and a BigInt does not. The ratio is reported with that difference stated, not left for the reader to find.
 
-`toString` is cached on a denary value, so a fresh value is built on every iteration. Timing the cache would be timing a property read.
+`toString` is cached on a decem value, so a fresh value is built on every iteration. Timing the cache would be timing a property read.
 
-None of this is the reason to choose denary. Every row here is tens to hundreds of nanoseconds, which is not where an application spends its time. These numbers are here so that the contract does not have to be paid for in speed.
+None of this is the reason to choose decem. Every row here is tens to hundreds of nanoseconds, which is not where an application spends its time. These numbers are here so that the contract does not have to be paid for in speed.
 
 <!-- end generated -->
 

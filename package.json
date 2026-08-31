@@ -1,5 +1,5 @@
 {
-  "name": "denary",
+  "name": "decem",
   "version": "0.1.0",
   "description": "A modern decimal library for TypeScript, built on BigInt. Addition and multiplication are exact; rounding takes a precision argument.",
   "keywords": [

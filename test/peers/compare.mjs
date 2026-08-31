@@ -1,10 +1,10 @@
-// Gate H: denary against a peer, with the oracle deciding.
+// Gate H: decem against a peer, with the oracle deciding.
 //
 // decimal.js is not an oracle. It is the thing being replaced and it guarantees nothing
 // about rounding, including a case its own source documents as wrong. A reference needs a
 // stronger guarantee than what it judges, or the comparison is two guesses side by side.
 //
-// So there are three parties. When denary and the peer disagree, the oracle says which of
+// So there are three parties. When decem and the peer disagree, the oracle says which of
 // them is wrong:
 //
 //   both agree                       nothing to do
@@ -92,23 +92,23 @@ for (const c of cases) {
     bump(`declared difference: ${rule.id}`);
     if (oracleAgreesWithUs && !oracleAgreesWithPeer && evidence.length < 6)
       evidence.push(`  [${rule.id}] ${c.op}(${c.args.join(", ")})\n` +
-        `     denary     ${ours.value ?? "raised " + ours.threw}  (matches the oracle)\n` +
+        `     decem     ${ours.value ?? "raised " + ours.threw}  (matches the oracle)\n` +
         `     decimal.js ${peer.value ?? "raised " + peer.threw}`);
     continue;
   }
   if (sameAsPeer) { bump("spelling differs, undeclared"); }
   else if (oracleAgreesWithUs) { bump("peer is wrong, undeclared"); }
-  else if (oracleAgreesWithPeer) { bump("denary is wrong"); }
+  else if (oracleAgreesWithPeer) { bump("decem is wrong"); }
   else { bump("neither matches the oracle"); }
   if (undeclared.length < 10)
     undeclared.push(`  ${c.id} ${c.op}(${c.args.join(", ")})` +
       (c.prec ? ` @${JSON.stringify(c.prec)} ${c.rounding}` : "") +
-      `\n     denary     ${ours.value ?? "raised " + ours.threw}` +
+      `\n     decem     ${ours.value ?? "raised " + ours.threw}` +
       `\n     decimal.js ${peer.value ?? "raised " + peer.threw}` +
       `\n     oracle     ${want.error ?? want.result}`);
 }
 
-console.log(`Gate H (denary vs ${PEER.peer} ${PEER.version}, oracle deciding)  ${cases.length} cases`);
+console.log(`Gate H (decem vs ${PEER.peer} ${PEER.version}, oracle deciding)  ${cases.length} cases`);
 for (const [k, v] of Object.entries(tally).sort((a, b) => b[1] - a[1]))
   console.log(`  ${k.padEnd(26)} ${v}`);
 // The ledger states how many of the corpus land in each of the spelling buckets, and a
@@ -127,7 +127,7 @@ let stale = 0;
 }
 
 if (evidence.length) {
-  console.log("\n-- sample differences where the oracle sides with denary --");
+  console.log("\n-- sample differences where the oracle sides with decem --");
   evidence.forEach((e) => console.log(e));
 }
 if (undeclared.length) {

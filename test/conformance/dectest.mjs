@@ -189,7 +189,7 @@ for (const file of files) {
     if (!same && valueOk) {
       spellingOnly++;
       spellFailures.length < 12 && spellFailures.push(
-        `  ${left[0]}  ${op}(${args.join(", ")}) @${prec} ${rounding}\n     spec   ${spelled}\n     denary ${got}`);
+        `  ${left[0]}  ${op}(${args.join(", ")}) @${prec} ${rounding}\n     spec   ${spelled}\n     decem ${got}`);
       continue;
     }
     if (same) pass++;

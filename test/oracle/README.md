@@ -11,7 +11,7 @@ not cover.
 gen-cases.mjs      cases/*.jsonl       deterministic generation, fixed seed
 oracle.py          expected/*.jsonl    the answers, computed by libmpdec and MPFR
 verify-oracle.py                       checks the oracle itself, before anything trusts it
-compare.mjs                            denary against the committed answers
+compare.mjs                            decem against the committed answers
 ```
 
 ## Running it
@@ -49,7 +49,7 @@ For the MPFR paths, the precision is raised until the answer stops moving: compu
 and at 2P, round both to the requested digits, and accept only when they agree.
 
 A formula was tried first and came up short twice, both times caught by gate C, and both
-times the oracle rather than denary turned out to be wrong.
+times the oracle rather than decem turned out to be wrong.
 
 - `cbrt` at a constructed tie: 30 cases, because `exp(ln(x)/3)` cannot resolve a
   boundary. That path now goes to MPFR directly.

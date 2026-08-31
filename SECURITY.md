@@ -6,7 +6,7 @@ exhaustion, and that is bounded by contract.
 
 ## Resource limits
 
-Both limits are enforced by denary before the engine reaches its own ceiling, so failures
+Both limits are enforced by decem before the engine reaches its own ceiling, so failures
 are consistent exceptions rather than out-of-memory crashes:
 
 - `DigitOverflow`, when the mantissa would exceed the runtime's `BigInt` capacity.

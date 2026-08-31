@@ -4,7 +4,7 @@
 // Fairness is the hard part, and the parts that cannot be made fair are named rather than
 // smoothed over:
 //
-//   Multiplication is not the same operation. denary's is exact and keeps every digit;
+//   Multiplication is not the same operation. decem's is exact and keeps every digit;
 //   decimal.js rounds to its global precision. At equal inputs it is doing less work, and
 //   the 400-digit row is where that gap is widest, so the ratio there is not a like for
 //   like comparison and the report says so.
@@ -25,7 +25,7 @@ import { CASES } from "./peers/cases.mjs";
 
 const require = createRequire(import.meta.url);
 
-const TARGETS = ["./peers/denary.mjs", "./peers/decimal-js.mjs", "./peers/big-js.mjs"];
+const TARGETS = ["./peers/decem.mjs", "./peers/decimal-js.mjs", "./peers/big-js.mjs"];
 
 export async function run() {
   const targets = [], absent = [];

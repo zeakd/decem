@@ -1,4 +1,4 @@
-# denary
+# decem
 
 **A modern decimal library for TypeScript, built on `BigInt`.**
 
@@ -7,7 +7,7 @@ from 2014, four years earlier, and a `number[]` in base 1e7 was the right answer
 ships an `.mjs` today, but behind it is the same array, the same global precision, and
 type declarations kept by hand beside the code.
 
-The representation is what dates a decimal library. denary starts from a `BigInt` mantissa,
+The representation is what dates a decimal library. decem starts from a `BigInt` mantissa,
 which makes exact multiplication affordable, and the rest follows from that.
 
 The types carry the contract. Leaving out a precision does not compile, and neither does
@@ -26,7 +26,7 @@ your invoice totals move. Here is what it costs at its default of 20:
 new Decimal("5652600335.41").plus("-0.00000000000000006435").toString();
 // "5652600335.41"                   the second number is gone
 
-// denary
+// decem
 toString(add(dec`5652600335.41`, dec`-0.00000000000000006435`));
 // "5652600335.40999999999999993565"
 ```
@@ -39,7 +39,7 @@ does round asks you how precisely, on the line where you asked for it, so the de
 never somewhere else.
 
 ```sh
-npm install denary
+npm install decem
 ```
 
 ## Where it pays off
@@ -48,9 +48,9 @@ Split a bill seven ways and hand out the remainder. Everyone gets the same share
 for the few won left over, and the check only balances if `base × n` is exact:
 
 ```ts
-import { dec, fromInt, mul, sub, add, sum, lt, div, eq } from "denary";
+import { dec, fromInt, mul, sub, add, sum, lt, div, eq } from "decem";
 // A file that does several kinds of arithmetic can take the whole surface as a namespace
-// instead: `import * as dn from "denary"`. The two bundle to the same bytes, so it is a
+// instead: `import * as dn from "decem"`. The two bundle to the same bytes, so it is a
 // choice per file rather than a cost.
 
 const WON = { scale: 0, rounding: "floor" } as const;   // floor, not down: it has to hold for a refund too
@@ -265,7 +265,7 @@ value that works. So `a < b` raises on first execution, naming `lt`.
 
 ### The rest
 
-| | decimal.js | denary |
+| | decimal.js | decem |
 |---|---|---|
 | Mantissa | `number[]` in base 1e7 | `BigInt` |
 | Surface | 102 prototype methods, 43 of them aliased pairs | 47 functions |
@@ -277,7 +277,7 @@ None of this is a disagreement with its author. decimal.js was written four year
 was not affordable, which is why a global precision had to exist at all and why every row
 above follows from that one constraint.
 
-Comparison is the row denary loses. On the others they are level on addition and denary is
+Comparison is the row decem loses. On the others they are level on addition and decem is
 ahead on parsing, multiplication, division and the transcendentals, with the figures
 generated from a run in [`docs/benchmarks.md`](docs/benchmarks.md), which also says why none
 of it is the reason to switch.
@@ -306,12 +306,12 @@ TC39's proposal splits `Decimal` from `Amount`. More than about 3.2e5 digits on
 JavaScriptCore, where GMP is the right tool.
 
 When TC39's `Decimal` lands it will be Decimal128: 34 digits, fixed. That covers a lot of
-work. denary is for when 34 is not enough, or when you want the exactness contract above
+work. decem is for when 34 is not enough, or when you want the exactness contract above
 instead of a floating format.
 
 ## Documents
 
-- `denary/chain`, an opt-in chaining surface kept out of the core so a program that only
+- `decem/chain`, an opt-in chaining surface kept out of the core so a program that only
   rounds does not ship it: `chain(x).add(y).div(z, p).value`
 - [`examples/`](examples/), one question per file, each of them a program that runs
 - [`docs/values.md`](docs/values.md), how a value gets in and what happens when it leaves

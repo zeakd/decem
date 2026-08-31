@@ -2,7 +2,7 @@
 // answer was rounded.
 //
 //   node --experimental-strip-types examples/precision.ts
-import { dec, toString, mul, div, round, quantize, divStatus } from "denary";
+import { dec, toString, mul, div, round, quantize, divStatus } from "decem";
 
 // Exact operations take no precision. There is no argument to pass because there is
 // nothing to decide.

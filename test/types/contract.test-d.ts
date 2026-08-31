@@ -6,7 +6,7 @@
 // The expect-error directive is self-checking: if the line below one does not error, the
 // directive itself becomes the error. A passing file therefore means both halves hold,
 // that what should be refused is refused and what should compile still compiles.
-import * as d from "denary";
+import * as d from "decem";
 
 const a = d.dec`1`;
 const b = d.dec`3`;
@@ -110,9 +110,9 @@ const _dir: -1 | 0 | 1 = _r.direction;
 void [_r, _ex, _dir];
 
 try { d.div(a, b, { digits: 1 }); } catch (e) {
-  if (e instanceof d.DenaryError) {
-    const _c: d.DenaryCode = e.code;
-    const _d: d.DenaryDetails = e.details;
+  if (e instanceof d.DecemError) {
+    const _c: d.DecemCode = e.code;
+    const _d: d.DecemDetails = e.details;
     void [_c, _d];
   }
 }

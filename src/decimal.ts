@@ -62,12 +62,12 @@ export interface Rounded { value: Dec; exact: boolean; direction: -1 | 0 | 1 }
  * Error codes. The message is for a person and the code is for a program. Branching on
  * message text freezes the wording, and rewording then breaks somebody's code.
  */
-export type DenaryCode =
+export type DecemCode =
   | "INVALID_LITERAL" | "DIVISION_BY_ZERO" | "DIGIT_OVERFLOW" | "EXPONENT_OVERFLOW"
   | "PRECISION_REQUIRED" | "NOT_AN_INTEGER" | "DOMAIN" | "INDETERMINATE_ROUNDING";
 
 /** Facts attached to an error, so a log or a report can reconstruct what happened. */
-export interface DenaryDetails {
+export interface DecemDetails {
   op?: string;
   operands?: readonly string[];
   limit?: number;
@@ -75,10 +75,10 @@ export interface DenaryDetails {
   precision?: number;
 }
 
-export class DenaryError extends Error {
-  readonly code: DenaryCode;
-  readonly details: DenaryDetails;
-  constructor(code: DenaryCode, message: string, details: DenaryDetails = {}) {
+export class DecemError extends Error {
+  readonly code: DecemCode;
+  readonly details: DecemDetails;
+  constructor(code: DecemCode, message: string, details: DecemDetails = {}) {
     super(message);
     this.name = new.target.name;
     this.code = code;
@@ -86,9 +86,9 @@ export class DenaryError extends Error {
   }
 }
 
-const sub = (code: DenaryCode) =>
-  class extends DenaryError {
-    constructor(message: string, details: DenaryDetails = {}) { super(code, message, details); }
+const sub = (code: DecemCode) =>
+  class extends DecemError {
+    constructor(message: string, details: DecemDetails = {}) { super(code, message, details); }
   };
 
 export class InvalidLiteral    extends sub("INVALID_LITERAL") {}
@@ -164,7 +164,7 @@ export function digits(n: bigint): number {
  * Probing drifts with memory pressure. The same V8 reported 323,228,496 digits under
  * Node and 323,228,477 in a browser tab, and a limit that moves between runs is not a
  * contract. The probed value is therefore cut by 0.1% and floored to a thousand. This
- * is the point where denary raises, so a conservative number is always safe.
+ * is the point where decem raises, so a conservative number is always safe.
  */
 let MAX_DIGITS: number | null = null;
 export function maxDigits(): number {
@@ -257,7 +257,7 @@ class DecValue {
     // toString and JSON all give the bare value.
     if (hint === "string") return toString(this as unknown as Dec);
     if (hint !== "number") return `[decimal ${toString(this as unknown as Dec)}]`;
-    // A TypeError rather than a DenaryError, because the question is a type question
+    // A TypeError rather than a DecemError, because the question is a type question
     // rather than a value one.
     //
     // This is stricter than BigInt, which was checked rather than assumed. BigInt raises

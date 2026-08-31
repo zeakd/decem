@@ -1,6 +1,6 @@
 # Declared differences
 
-Every point where denary's result or contract differs from the General Decimal
+Every point where decem's result or contract differs from the General Decimal
 Arithmetic specification or from decimal.js, with the reason.
 
 **This ledger is machine-checked.** Gate H compares against decimal.js over the same
@@ -12,7 +12,7 @@ the thing being replaced and guarantees nothing about rounding, so it cannot be 
 
 ## Against the specification
 
-| Point | Specification | denary | Why |
+| Point | Specification | decem | Why |
 |---|---|---|---|
 | `sqrt` rounding mode | always half-even | **honours the caller's mode** | The remainder-based proof holds for every mode. Requiring a precision argument and then ignoring a field inside it is worse than exceeding the specification. A superset. |
 | `05up` rounding | round-for-reround, one of the specification's eight modes | **absent**, seven are provided | It exists to let an intermediate be rounded again later without a double rounding error, which is a need this does not create: an exact operation does not round at all, and an approximate one is rounded once, at the precision the caller named. 170 of the specification's testcases use it and are reported as not applicable rather than skipped quietly. |
@@ -26,7 +26,7 @@ the thing being replaced and guarantees nothing about rounding, so it cannot be 
 
 ## Against decimal.js
 
-| Point | decimal.js | denary | Why |
+| Point | decimal.js | decem | Why |
 |---|---|---|---|
 | multiplication | rounded to the global `precision` | **exact** | Closed over decimals; there is nothing to round (hard rule 1). |
 | precision for `div` | global configuration | **required argument, compile-time** | A global is a decision made where the caller cannot see it (hard rule 2). |
@@ -49,7 +49,7 @@ Gate H's own output, on a case from the corpus:
 
 ```
 5652600335.41 + (-0.00000000000000006435)
-  denary      5652600335.40999999999999993565   ← matches the oracle
+  decem      5652600335.40999999999999993565   ← matches the oracle
   decimal.js  5652600335.41                     ← the addend vanished
 ```
 

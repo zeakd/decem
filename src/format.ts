@@ -28,7 +28,7 @@ export function toFixed(x: Dec, n: number): string {
   // both reachable from a legal value: `1e9000000000000000` needs that many digits before
   // the point, and asking for nine thousand million million places needs them after it.
   // Left alone, one is a RangeError from BigInt and the other from the string, neither of
-  // which carries a code or descends from DenaryError, and the ceiling this library
+  // which carries a code or descends from DecemError, and the ceiling this library
   // declares would be discovered rather than declared on the way out.
   const wide = Math.max(n + x.exp, 0) + digits(x.mant);
   if (overCeiling(wide) || overCeiling(n))

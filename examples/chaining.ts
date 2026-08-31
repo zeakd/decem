@@ -6,8 +6,8 @@
 // anything, and `div` requires one.
 //
 //   node --experimental-strip-types examples/chaining.ts
-import { dec, fromInt, toString } from "denary";
-import { chain } from "denary/chain";
+import { dec, fromInt, toString } from "decem";
+import { chain } from "decem/chain";
 
 const WON = { scale: 0, rounding: "floor" } as const;
 

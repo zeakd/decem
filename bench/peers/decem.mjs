@@ -5,7 +5,7 @@ import { A, B, WIDE, DIGITS, LITERAL } from "./cases.mjs";
 const P = { digits: DIGITS };
 const a = d.dec(A), b = d.dec(B), wide = d.dec(WIDE), one5 = d.dec`1.5`;
 
-export const meta = { name: "denary", pkg: null, notes: "the subject" };
+export const meta = { name: "decem", pkg: null, notes: "the subject" };
 
 export const ops = {
   parse: () => d.dec(LITERAL),

@@ -19,13 +19,13 @@ export const RULES = [
   },
   {
     id: "division-by-zero",
-    why: "denary raises DivisionByZero where decimal.js returns Infinity",
+    why: "decem raises DivisionByZero where decimal.js returns Infinity",
     match: (c, ours) => ours.threw === "DivisionByZero",
   },
   {
     id: "domain-errors-raise",
-    why: "for ln(0), sqrt of a negative and the like, denary raises where decimal.js returns NaN or -Infinity",
-    match: (c, ours) => ours.threw === "DenaryError" || ours.threw === "ExponentOverflow",
+    why: "for ln(0), sqrt of a negative and the like, decem raises where decimal.js returns NaN or -Infinity",
+    match: (c, ours) => ours.threw === "DecemError" || ours.threw === "ExponentOverflow",
   },
   {
     id: "ideal-exponent-kept",
@@ -37,7 +37,7 @@ export const RULES = [
   {
     id: "output-format-fixed",
     spelling: true,
-    why: "denary prints the specification's to-scientific-string, so the switch to exponential " +
+    why: "decem prints the specification's to-scientific-string, so the switch to exponential " +
       "form is fixed and the exponent letter is capital E; decimal.js has toExpPos and toExpNeg " +
       "and writes a lowercase e",
     match: () => true,

@@ -24,7 +24,7 @@ ROUNDING = {
 }
 # Operations libmpdec fixes to half-even, as the specification requires.
 HALF_EVEN_ONLY = {"exp", "ln", "log10"}
-# The specification fixes sqrt to half-even too, but denary honours the requested mode,
+# The specification fixes sqrt to half-even too, but decem honours the requested mode,
 # so the oracle computes it: a correctly-rounded value at high precision, then rounded to
 # the requested mode. The reasoning is in docs/differences.md.
 HIGH_THEN_ROUND = {"sqrt"}
@@ -61,7 +61,7 @@ def run_trig(op, args, prec, rounding, fn=None):
     constructed cbrt tie, and 6 at an exp boundary built through its inverse, where the
     deviation sat at the 101st digit while the oracle worked to 97.
 
-    So the oracle retries the same way denary does. Compute at P and at 2P, round both to
+    So the oracle retries the same way decem does. Compute at P and at 2P, round both to
     the requested digits, and accept only when they agree. A reference that cannot detect
     its own shortfall is not a reference.
     """

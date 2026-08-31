@@ -1,7 +1,7 @@
 import { isqrt, icbrt } from "./roots.ts";
 import {
   make, pow10, digits, isNeg, guard, maxDigits, overCeiling,
-  DivisionByZero, PrecisionRequired, DigitOverflow, DomainError, DenaryError,
+  DivisionByZero, PrecisionRequired, DigitOverflow, DomainError, DecemError,
   type Dec, type Precision, type DigitsPrecision, type ScalePrecision,
   type Rounding, type Rounded,
 } from "./decimal.ts";

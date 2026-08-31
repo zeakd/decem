@@ -1,4 +1,4 @@
-// Gate C: does denary diverge from the oracle at a rounding boundary?
+// Gate C: does decem diverge from the oracle at a rounding boundary?
 //
 // Passing gate A does not demonstrate correct rounding, because random cases essentially
 // never land on a tie. This is where that is settled.

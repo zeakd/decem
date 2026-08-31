@@ -36,7 +36,7 @@ contract says text.
 In a file that is mostly constants, rename at the import:
 
 ```ts
-import { dec as d } from "denary";
+import { dec as d } from "decem";
 
 const VAT = d`0.1`;
 ```

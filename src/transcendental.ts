@@ -9,8 +9,8 @@
 // guard bound exists for arbitrary precision, so the loop is the only honest answer.
 import {
   make, pow10, digits, maxDigits, isNeg, ExponentOverflow, DivisionByZero, DomainError,
-  DenaryError, type Dec, type Precision,
-  type DenaryDetails,
+  DecemError, type Dec, type Precision,
+  type DecemDetails,
 } from "./decimal.ts";
 import { expSeries, lnSeries, sinSeries, cosSeries, pi, ln2, ln10, mulS, divS } from "./series.ts";
 import { roundAny as round } from "./ops.ts";
@@ -18,8 +18,8 @@ import { powInt } from "./roots.ts";
 import { toString } from "./format.ts";
 
 /** The retry loop ran past the digit ceiling, so no value is returned. */
-export class IndeterminateRounding extends DenaryError {
-  constructor(message: string, details: DenaryDetails = {}) {
+export class IndeterminateRounding extends DecemError {
+  constructor(message: string, details: DecemDetails = {}) {
     super("INDETERMINATE_ROUNDING", message, details);
   }
 }

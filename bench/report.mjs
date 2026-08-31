@@ -119,19 +119,19 @@ const section = [
   "",
   "### What the widest row is not",
   "",
-  `Multiplication is not the same operation on both sides. denary's is exact and keeps ` +
+  `Multiplication is not the same operation on both sides. decem's is exact and keeps ` +
   `every digit; ${peer.name} rounds the product to its configured precision. At ${DIGITS} ` +
   "digits the inputs are short enough that both results are exact anyway, so that row is a " +
-  `direct comparison. At 400 digits it is not: denary returns an 800-digit exact product ` +
-  `where ${peer.name} returns ${DIGITS} rounded digits, and denary is still ` +
+  `direct comparison. At 400 digits it is not: decem returns an 800-digit exact product ` +
+  `where ${peer.name} returns ${DIGITS} rounded digits, and decem is still ` +
   `${wideRatio.toFixed(0)} times faster, because a base-1e7 array multiplies in O(n squared) ` +
   "and a BigInt does not. The ratio is reported with that difference stated rather than " +
   "left for the reader to find.",
   "",
-  "`toString` is cached on a denary value, so a fresh value is built on every iteration. " +
+  "`toString` is cached on a decem value, so a fresh value is built on every iteration. " +
   "Timing the cache would be timing a property read.",
   "",
-  "None of this is the reason to choose denary. Every row here is tens to hundreds of " +
+  "None of this is the reason to choose decem. Every row here is tens to hundreds of " +
   "nanoseconds, which is not where an application spends its time. These numbers are here " +
   "so that the contract does not have to be paid for in speed.",
   "",

@@ -21,7 +21,7 @@ if (!existsSync(join(ROOT, "dist/index.js")))
   { console.log("SKIP no build output; run the build first"); process.exit(2); }
 if (!existsSync(CHROME)) { console.log("SKIP Chrome not found"); process.exit(2); }
 
-const PAGE = `<!doctype html><meta charset="utf-8"><title>denary</title>
+const PAGE = `<!doctype html><meta charset="utf-8"><title>decem</title>
 <script type="module">
   const send = (o) => fetch("/result", { method: "POST", body: JSON.stringify(o) });
   try {
@@ -55,7 +55,7 @@ const server = createServer((req, res) => {
 await new Promise((r) => server.listen(0, "127.0.0.1", r));
 const port = server.address().port;
 // A throwaway profile, so this never collides with a Chrome the user already has open.
-const profile = mkdtempSync(join(tmpdir(), "denary-chrome-"));
+const profile = mkdtempSync(join(tmpdir(), "decem-chrome-"));
 // Started in its own process group. Chrome spawns several children, and killing only the
 // parent leaves them running and eating CPU, which then shows up in the benchmark that
 // runs next. That contamination once looked like a 1.3x regression in addition. Killing

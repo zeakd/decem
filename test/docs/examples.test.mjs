@@ -39,7 +39,7 @@ const claims = (label, actual, printed) => {
 
 test("the opening example still opens", () => {
   claims(`decimal.js ${PEER[0].version} loses the addend`, peer("readme-opening"), "5652600335.41");
-  claims("denary keeps it",
+  claims("decem keeps it",
     str(add(dec`5652600335.41`, dec`-0.00000000000000006435`)), "5652600335.40999999999999993565");
 });
 
@@ -121,7 +121,7 @@ test("the boundary example round-trips", () => {
   const price = dec`19.99`;
   assert.equal(str(dec(str(price))), "19.99");
   assert.equal(tryDec("1,234"), null);
-  assert.throws(() => fromInt(2 ** 53), d.DenaryError);
+  assert.throws(() => fromInt(2 ** 53), d.DecemError);
 });
 
 // An import list is a claim too: it says these are the names the example needs. An unused
@@ -133,7 +133,7 @@ test("every example imports what it uses and uses what it imports", () => {
   let checked = 0;
   for (const src of sources) {
     for (const [, list, body] of src.matchAll(
-      /import \{([^}]+)\} from "(?:denary|\.\.\/src\/index\.ts)";([\s\S]*?)(?:\n```|$)/g)) {
+      /import \{([^}]+)\} from "(?:decem|\.\.\/src\/index\.ts)";([\s\S]*?)(?:\n```|$)/g)) {
       checked++;
       const named = list.split(",").map((x) => x.trim())
         .filter((x) => x && !x.startsWith("type "))
@@ -205,7 +205,7 @@ test("the examples build constants the way the documents say to", () => {
 // Two things drifted in the prose today, and both are the same shape: a figure typed into
 // a sentence next to a figure that is produced.
 //
-// The README said the two libraries were level on comparison when it is the row denary
+// The README said the two libraries were level on comparison when it is the row decem
 // loses, and quoted four speed ratios that had all moved. A ratio belongs in the generated
 // table and nowhere else, so the hand-written documents may not carry one.
 test("the prose does not carry a benchmark ratio", () => {

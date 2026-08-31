@@ -1,7 +1,7 @@
 // The everyday path: build values, calculate exactly, round once at the end.
 //
 //   node --experimental-strip-types examples/money.ts
-import { dec, toString, add, mul, sum, quantize } from "denary";
+import { dec, toString, add, mul, sum, quantize } from "decem";
 
 const WON = { scale: 0, rounding: "floor" } as const;
 const VAT = dec`0.1`;

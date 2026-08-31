@@ -2,7 +2,7 @@
 // questions in the same order.
 //
 // Why these and not others. Each is an operation the libraries genuinely share, at a size
-// somebody actually uses. `compare` is here because denary loses it, and a table that only
+// somebody actually uses. `compare` is here because decem loses it, and a table that only
 // holds the wins is an advertisement rather than a measurement. The 400-digit rows are
 // here because the representation is the reason this library exists and that is where the
 // choice shows.
@@ -26,11 +26,11 @@ export const CASES = [
   { key: "mulWide", label: "multiply, 400 digits", iters: 5000 },
 ];
 
-// A row denary loses needs a reason recorded here, and the report fails to generate
+// A row decem loses needs a reason recorded here, and the report fails to generate
 // without one. A losing row is a fact about the design; an unexplained one is a fact
 // nobody looked at.
 export const DECLARED_LOSSES = {
-  cmp: "Both peers keep digits in a form that can be scanned directly, while denary has " +
+  cmp: "Both peers keep digits in a form that can be scanned directly, while decem has " +
        "to align two exponents before it can compare. It is the cheapest operation in the " +
        "table, so there is nothing else in the row to amortise that against.",
 };

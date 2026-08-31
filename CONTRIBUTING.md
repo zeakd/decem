@@ -21,7 +21,7 @@ expected: ...
 ```
 
 We will add it to `test/oracle/cases/` and let the oracle adjudicate. Note that the
-oracle decides, not denary and not your other library. See
+oracle decides, not decem and not your other library. See
 [`docs/differences.md`](docs/differences.md) for why decimal.js cannot serve as one.
 
 ## Development setup
@@ -36,7 +36,7 @@ The gates are defined in [`mise.toml`](mise.toml), one task each, and `pnpm chec
 them. They run in parallel, apart from the performance gate, which measures wall time and
 gets the machine to itself. `mise tasks` lists them with what each one checks.
 
-That install does not pull the libraries denary is compared against for speed. They are
+That install does not pull the libraries decem is compared against for speed. They are
 declared in [`bench/package.json`](bench/package.json), fetched only if you want the full
 comparison:
 
@@ -45,7 +45,7 @@ npm install --prefix bench
 pnpm bench:versus
 ```
 
-Without them the comparison still runs on denary alone and names the targets it could not
+Without them the comparison still runs on decem alone and names the targets it could not
 find.
 
 Gate H compares behaviour against `decimal.js`, not speed. Its answers are committed like

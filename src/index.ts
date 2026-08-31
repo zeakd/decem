@@ -12,10 +12,10 @@ export {
 export {
   isZero, isNeg, isDec, digits, maxDigits, scaleOf,
   EXP_LIMIT,
-  DenaryError, InvalidLiteral, DivisionByZero, DigitOverflow,
+  DecemError, InvalidLiteral, DivisionByZero, DigitOverflow,
   ExponentOverflow, PrecisionRequired, NotAnInteger, DomainError,
 } from "./decimal.ts";
 export type {
   Dec, Literal, Precision, DigitsPrecision, ScalePrecision, Rounding, Rounded,
-  DenaryCode, DenaryDetails,
+  DecemCode, DecemDetails,
 } from "./decimal.ts";

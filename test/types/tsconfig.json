@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "denary": [
+      "decem": [
         "../../src/index.ts"
       ]
     }

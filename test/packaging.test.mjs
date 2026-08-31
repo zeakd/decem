@@ -26,7 +26,7 @@ const PROMISED = [
   "exp", "ln", "log10", "sin", "cos", "tan",
   "roundStatus", "quantizeStatus", "divStatus", "sqrtStatus",
   "maxDigits", "EXP_LIMIT",
-  "DenaryError", "InvalidLiteral", "DivisionByZero", "DigitOverflow",
+  "DecemError", "InvalidLiteral", "DivisionByZero", "DigitOverflow",
   "ExponentOverflow", "PrecisionRequired", "NotAnInteger", "DomainError",
   "IndeterminateRounding",
 ];

@@ -1,4 +1,4 @@
-// Gate A: denary against the oracle's answers.
+// Gate A: decem against the oracle's answers.
 // This runner predates the implementation, because it is what the implementation had to pass.
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -68,7 +68,7 @@ for (const kind of ["exact", "approx"]) {
     } else if (got !== want.result) {
       fmtOnly++;
       if (fmtFailures.length < 10)
-        fmtFailures.push(`${label}\n     spec   ${want.result}\n     denary ${got}`);
+        fmtFailures.push(`${label}\n     spec   ${want.result}\n     decem ${got}`);
     } else pass++;
   }
 }

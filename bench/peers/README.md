@@ -6,26 +6,26 @@ that file is the fix.
 
 ```
 cases.mjs        what is measured, why those cases, and which losses are on record
-denary.mjs       the subject, in the same shape as any target
+decem.mjs       the subject, in the same shape as any target
 decimal-js.mjs   one target
 big-js.mjs       one target
 ```
 
 ## Where the targets are declared
 
-A library the benchmark alone needs is a dependency of the benchmark, not of denary, so
+A library the benchmark alone needs is a dependency of the benchmark, not of decem, so
 it is declared in [`../package.json`](../package.json) and installed separately:
 
 ```sh
 npm install --prefix bench      # the full matrix
 ```
 
-Installing denary itself pulls none of them. Without them the self-comparison still runs
+Installing decem itself pulls none of them. Without them the self-comparison still runs
 and says which targets are missing; the report refuses to write a partial table, because a
 table with a column missing is a different claim rather than a smaller one.
 
 Gate H compares results against `decimal.js` too, and it used to be a devDependency of
-denary for that reason, which put the library being replaced in the manifest of the
+decem for that reason, which put the library being replaced in the manifest of the
 library replacing it. Its answers are committed now, the same way the oracle's are, so the
 gate reads them and needs nothing installed. Both users of the peer are here.
 
@@ -41,7 +41,7 @@ to audit and separate enough to correct one piece at a time.
 - **An unfair call.** Each target is called from its own file, and an operation a library
   does not have is `null` rather than something nearby.
 - **A flattering selection.** The case list says why each case is there, including the one
-  denary loses. A row we lose without a reason on file stops the report from generating.
+  decem loses. A row we lose without a reason on file stops the report from generating.
 - **One machine.** Every figure comes from one processor. Results from another are worth
   more to us than any number in the table.
 

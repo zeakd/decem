@@ -11,7 +11,7 @@
 // under both, which is why the refund is run here too.
 //
 //   node --experimental-strip-types examples/split.ts
-import { dec, fromInt, toString, add, sub, mul, sum, eq, lt, div, type Dec } from "denary";
+import { dec, fromInt, toString, add, sub, mul, sum, eq, lt, div, type Dec } from "decem";
 
 const WON = { scale: 0, rounding: "floor" } as const;
 

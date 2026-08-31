@@ -101,7 +101,7 @@ always `false` is not information.
   meet that.
 - The General Decimal Arithmetic specification permits up to 1 ulp of error for `exp`
   and `ln`. That allowance is not used.
-- The specification fixes `sqrt` to round-half-even. denary honours the caller's mode
+- The specification fixes `sqrt` to round-half-even. decem honours the caller's mode
   instead: the remainder-based proof holds for every mode, and silently ignoring a
   field inside a required argument is worse than exceeding the specification.
 

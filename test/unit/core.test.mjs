@@ -10,8 +10,8 @@ import { memo } from "../../src/memo.ts";
 const s = d.toString, f = d.dec;
 
 test("dec refuses a number, stopping the loss at the entrance", () => {
-  assert.throws(() => f(0.1), d.DenaryError);
-  assert.throws(() => f(1), d.DenaryError);          // integers too; an exception would not be a rule
+  assert.throws(() => f(0.1), d.DecemError);
+  assert.throws(() => f(1), d.DecemError);          // integers too; an exception would not be a rule
 });
 
 test("dec accepts a string, a bigint, or an existing value", () => {
@@ -37,8 +37,8 @@ test("fromNumber: exact and shortest give different values, and both are defensi
   assert.equal(s(d.fromNumber(3, "exact")), "3");
   assert.equal(s(d.fromNumber(-0, "shortest")), "-0");
   assert.equal(s(d.fromNumber(-0, "exact")), "-0");   // the modes must agree about -0
-  assert.throws(() => d.fromNumber(NaN, "exact"), d.DenaryError);
-  assert.throws(() => d.fromNumber(Infinity, "exact"), d.DenaryError);
+  assert.throws(() => d.fromNumber(NaN, "exact"), d.DecemError);
+  assert.throws(() => d.fromNumber(Infinity, "exact"), d.DecemError);
 });
 
 test("the dec tag removes the friction of quoting every literal", () => {
@@ -65,7 +65,7 @@ test("an approximate operation without a precision raises at runtime as well", (
   assert.throws(() => d.div(a, b, { digits: 0 }), d.PrecisionRequired);
   // digits and scale are exclusive at runtime too; the type side is gate E.
   assert.throws(() => d.div(a, b, { digits: 10, scale: 2 }), d.PrecisionRequired);
-  assert.throws(() => d.div(a, b, { digits: 20, rounding: "nearest" }), d.DenaryError);
+  assert.throws(() => d.div(a, b, { digits: 20, rounding: "nearest" }), d.DecemError);
 });
 
 test("division by zero raises instead of producing Infinity", () => {
@@ -119,7 +119,7 @@ test("pow with an integer exponent is exact and takes no precision", () => {
   assert.equal(s(d.pow(d.dec`-2`, 2)), "4");
   assert.equal(s(d.pow(d.dec`1.10`, 3)), "1.331000");        // scale preserved
   // A negative exponent is a division and needs a precision, so it points at div.
-  assert.throws(() => d.pow(d.dec`2`, -1), d.DenaryError);
+  assert.throws(() => d.pow(d.dec`2`, -1), d.DecemError);
   assert.throws(() => d.pow(d.dec`2`, 1.5), d.InvalidLiteral);
 });
 
@@ -131,7 +131,7 @@ test("sqrt and cbrt are exact when they come out exact, proved by the remainder"
   assert.equal(s(d.sqrt(d.dec`0`, p)), "0");
   assert.equal(s(d.cbrt(d.dec`8`, p)), "2");
   assert.equal(s(d.cbrt(d.dec`8000000000`, p)), "2000");
-  assert.throws(() => d.sqrt(d.dec`-1`, p), d.DenaryError);
+  assert.throws(() => d.sqrt(d.dec`-1`, p), d.DecemError);
   // A cube root of a negative number is still real.
   assert.equal(s(d.cbrt(d.dec`-8`, p)), "-2");
   // A non-zero remainder means the result was rounded.
@@ -150,11 +150,11 @@ test("transcendentals skip the series where the answer is exact", () => {
 
 test("transcendentals raise outside their domain", () => {
   const P = { digits: 20 };
-  assert.throws(() => d.ln(d.dec`0`, P), d.DenaryError);
-  assert.throws(() => d.ln(d.dec`-1`, P), d.DenaryError);
-  assert.throws(() => d.log10(d.dec`-5`, P), d.DenaryError);
-  assert.throws(() => d.pow(d.dec`-2`, d.dec`0.5`, P), d.DenaryError);
-  assert.throws(() => d.pow(d.dec`0`, d.dec`0`, P), d.DenaryError);
+  assert.throws(() => d.ln(d.dec`0`, P), d.DecemError);
+  assert.throws(() => d.ln(d.dec`-1`, P), d.DecemError);
+  assert.throws(() => d.log10(d.dec`-5`, P), d.DecemError);
+  assert.throws(() => d.pow(d.dec`-2`, d.dec`0.5`, P), d.DecemError);
+  assert.throws(() => d.pow(d.dec`0`, d.dec`0`, P), d.DecemError);
   assert.throws(() => d.exp(d.dec`1e18`, P), d.ExponentOverflow);
 });
 
@@ -196,9 +196,9 @@ test("the output functions raise when a value would be cut", () => {
   assert.equal(d.toFixed(d.dec`5`, 0), "5");
   assert.equal(d.toFixed(d.dec`-0.5`, 1), "-0.5");
   // Too few digits raises, so the caller picks a rounding mode first.
-  assert.throws(() => d.toFixed(x, 2), d.DenaryError);
+  assert.throws(() => d.toFixed(x, 2), d.DecemError);
   assert.equal(d.toExponential(x, 7), "1.2345678E+3");
-  assert.throws(() => d.toExponential(x, 3), d.DenaryError);
+  assert.throws(() => d.toExponential(x, 3), d.DecemError);
   assert.equal(d.toNumber(x), 1234.5678);
   assert.equal(d.toBigInt(d.dec`1200`), 1200n);
   assert.equal(d.toBigInt(d.dec`1.200E+3`), 1200n);
@@ -254,8 +254,8 @@ test("errors carry a code and details, so nobody branches on message text", () =
   const e3 = grab(() => d.add(d.dec`1E+9000000000`, d.dec`1`));
   assert.equal(e3.code, "DIGIT_OVERFLOW");
   assert.ok(e3.details.actual > e3.details.limit);
-  // Everything descends from DenaryError, so one catch can cover them all.
-  for (const e of [e1, e2, e3]) assert.ok(e instanceof d.DenaryError);
+  // Everything descends from DecemError, so one catch can cover them all.
+  for (const e of [e1, e2, e3]) assert.ok(e instanceof d.DecemError);
 });
 
 test("sum is exact and order independent", () => {
@@ -416,7 +416,7 @@ test("only values made here count as values", () => {
   assert.equal(d.isDec({ mant: 5n, exp: 0, negZero: false }), false);
   assert.equal(d.isDec(null), false);
   assert.equal(d.isDec("1"), false);
-  assert.throws(() => f({ mant: 5n, exp: 0 }), d.DenaryError);
+  assert.throws(() => f({ mant: 5n, exp: 0 }), d.DecemError);
 });
 
 // Raising is the rule, and validating what a person typed is the one place it reads
@@ -457,11 +457,11 @@ test("toPlainString writes the value out with no exponent, ever", () => {
 
 // Writing a value out can outgrow the runtime, and the way out has to declare that like
 // every other ceiling here. Both of these used to be a bare RangeError, which carries no
-// code and is not a DenaryError, so a caller catching DenaryError missed them.
+// code and is not a DecemError, so a caller catching DecemError missed them.
 test("writing a value out raises the declared error rather than the engine's", () => {
   assert.throws(() => d.toFixed(f("1e9000000000000000"), 0), d.DigitOverflow);
   assert.throws(() => d.toFixed(d.dec`1`, 9e15), d.DigitOverflow);
-  assert.throws(() => d.toPlainString(f("1e9000000000000000")), d.DenaryError);
+  assert.throws(() => d.toPlainString(f("1e9000000000000000")), d.DecemError);
 });
 
 // The caches are bounded now, and a bound nothing exercises is a number in a comment.
