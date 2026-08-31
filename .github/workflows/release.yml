@@ -30,9 +30,9 @@ jobs:
       - uses: jdx/mise-action@v3
       - run: corepack enable
 
-      # Provenance needs a recent npm, and the one bundled with the pinned Node is older
-      # than the version that mints attestations without a flag.
-      - run: npm install -g npm@latest
+      # The pinned Node carries npm 11.19, which is past both the version that mints
+      # attestations and the one that handles the WebAuthn hand-off, so nothing is
+      # installed on top of it. Printed because a release should say what published it.
       - run: npm --version
 
       - run: pnpm install --frozen-lockfile
