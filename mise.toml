@@ -88,7 +88,11 @@ run = "pnpm install --frozen-lockfile --offline"
 description = "gate J, every operation stays inside a declared heap budget"
 run = "node test/memory/check.mjs"
 
+# The examples import the package by its own name, which Node resolves through `exports` to
+# `dist`, so this measures nothing without a build. It passed everywhere a build had already
+# happened and failed on the first clean clone, which was a runner.
 [tasks."check:examples"]
+depends = ["build"]
 run = "node --test test/docs/examples.test.mjs"
 
 [tasks."check:report"]
